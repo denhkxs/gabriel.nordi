@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gabriel Nordi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Satoshi', sans-serif;
+            cursor: url('https://r2.guns.lol/842c6252-adc1-46cb-a10c-c07de4de196c.png') 16 16, auto !important;
+        }
+
+        ::selection {
+            background: #ff0000;
+            color: #000;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid #ff0000;
+            object-fit: cover;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            padding: 0 10px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 0 10px;
+        }
+
+        .social-button {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 5px 10px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .social-button:hover {
+            color: #ff0000;
+            border-color: #ff0000;
+        }
+
+        .footer {
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+            margin-top: 30px;
+        }
+
+        .views-count {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 15px;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+        
+        /* Мини плеер */
+        .mini-player {
+            position: fixed;
+            bottom: 20px;
+            left: 10px;
+            right: 10px;
+            max-width: 320px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #ff0000;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            color: #fff;
+            font-family: 'Satoshi', sans-serif;
+            z-index: 1000;
+            margin: 0 auto;
+        }
+        
+        .mini-player-cover {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 8px;
+            box-shadow: 0 0 8px #ff0000;
+        }
+        
+        .mini-player-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .mini-player-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .mini-player-time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+        }
+        
+        #progressBar {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            border-radius: 2px;
+            background: #444;
+            cursor: pointer;
+        }
+        
+        #progressBar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .mini-player-btn {
+            background: none;
+            border: none;
+            color: #ff0000;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 8px;
+            padding: 0;
+            min-width: 24px;
+        }
+
+        /* Адаптация для больших экранов */
+        @media (min-width: 768px) {
+            .profile {
+                padding: 50px 0;
+            }
+            
+            .avatar {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 42px;
+            }
+            
+            h2 {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            
+            .social-links {
+                gap: 20px;
+                margin-top: 30px;
+            }
+            
+            .social-button {
+                font-size: 16px;
+                padding: 8px 15px;
+            }
+            
+            .mini-player {
+                left: 20px;
+                right: auto;
+                width: 320px;
+                padding: 10px;
+            }
+            
+            .mini-player-cover {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .mini-player-title {
+                font-size: 16px;
+            }
+            
+            .mini-player-time {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Фоновое видео -->
+    <video autoplay muted loop class="background-video">
+        <source src="https://r2.guns.lol/326010f7-4482-4e24-8594-7f076a103832.mp4" type="video/mp4">
+    </video>
+
+    <div class="container">
+        <header>
+            <!-- Здесь может быть навигация -->
+        </header>
+
+        <main>
+            <section class="profile">
+                <img src="img1.jpg" alt="Аватар" class="avatar">
+                <h1>Gabriel Nordi</h1>
+                <h2>Без Threat Intelligence'а — ты просто IOC в чьём-то отчёте</h2>
+
+                <div class="social-links">
+                    <a href="https://t.me/untachebled" target="_blank" class="social-button">@untachebled</a>
+                    <a href="https://t.me/NordiShop" target="_blank" class="social-button">@NordiShop</a>
+                    <a href="https://t.me/nordishopbot" target="_blank" class="social-button">@nordishopbot</a>
+                    <a href="https://t.me/adapternordi" target="_blank" class="social-button">@adapternordi</a>
+                    <a href="https://t.me/reviewsnordishop" target="_blank" class="social-button">@reviewsnordishop</a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="views-count">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"></path>
+                </svg>
+                <span></span>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Мини аудиоплеер -->
+    <div class="mini-player">
+        <img src="img2.jpg" alt="Обложка" class="mini-player-cover">
+        <div class="mini-player-info">
+            <div class="mini-player-title">YAUX - SUGAR COOKIES AND SUICIDE</div>
+            <div class="mini-player-time">
+                <span id="currentTime">0:00</span>
+                <input type="range" id="progressBar" min="0" max="100" value="0">
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+        <button id="playPauseBtn" class="mini-player-btn">▶️</button>
+        <audio id="miniAudio" src="SUGAR COOKIES AND SUICIDE - YAUX.mp3"></audio>
+    </div>
+
+    <script>
+        const audio = document.getElementById('miniAudio');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+
+        // Форматирование времени (секунды -> М:СС)
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+            progressBar.max = Math.floor(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            progressBar.value = Math.floor(audio.currentTime);
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
+
+        progressBar.addEventListener('input', () => {
+            audio.currentTime = progressBar.value;
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        });
+    </script>
+</body>
+</html>
